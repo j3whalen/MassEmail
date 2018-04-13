@@ -166,8 +166,8 @@ app.post("/send", (req, res) => {
 	  //return res.send('Please upload a file')	
 })
 
-app.listen(3000, (req, res) => {
-	console.log("Server started...");
+app.listen(process.env.PORT || 3000, function(){
+  console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
 });
 
 
