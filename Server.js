@@ -71,7 +71,7 @@ app.post("/preview", upload.single('csvFile'),(req, res)=>{
 		contents = fs.readFileSync(req.file.path, 'utf8');
 		res.render('preview', {
 			message:req.body.message,
-			subject: req.body.message
+			subject: req.body.subject
 		});
 	 }
 });
