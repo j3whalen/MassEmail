@@ -1,0 +1,17 @@
+.send-button{
+  text-align: center;
+  width:25%;
+  padding:1em;
+  border:1px solid #c9e6ff;
+  background:#c9e6ff;
+  border:0;
+  text-transform: uppercase;
+  margin: 0 auto;
+
+}
+.send-button:hover,.send-button:focus{
+  background:#92bde7;
+  color:#fff;
+  outline:0;
+  transition: background-color 2s ease-out;
+}
