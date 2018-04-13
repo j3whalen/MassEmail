@@ -19,6 +19,7 @@ var upload = multer({ dest: 'uploads/' });
 var fs = require('fs');
 
 
+
 var app = express();
 
 // This will store emails needed to send.
@@ -48,12 +49,19 @@ app.use(bodyParser.urlencoded({
 }))
 app.use(bodyParser.json())
 
+//environment variables
+require('dotenv').config();
+
 app.get('/', (req, res) => {
 	res.render('signin');
 });
 
 app.post('/signin', (req, res) =>{
-	if(req.body.user === "SittingPretty" && req.body.pass === "Jeanna0604"){
+	console.log("process.env.USER_NAME: " + process.env.USER_NAME);
+	console.log("process.env.PASSWORD: " + process.env.PASSWORD);
+	console.log(req.body.user == process.env.USER_NAME)
+	console.log(req.body.pass == process.env.Password)
+	if(req.body.user == process.env.USER_NAME && req.body.pass == process.env.Password){
 		res.render('email');
 	}else{
 		res.render('signin', {
@@ -71,7 +79,7 @@ app.post("/preview", upload.single('csvFile'),(req, res)=>{
 		contents = fs.readFileSync(req.file.path, 'utf8');
 		res.render('preview', {
 			message:req.body.message,
-			subject: req.body.subject
+			subject: req.body.subject,
 		});
 	 }
 });
@@ -180,8 +188,8 @@ function massMailer() {
         port: 587,
         secure: false, // true for 465, false for other ports
         auth: {
-            user: "dd8c3d2b9462d412c943ea67d0b3c22e", // generated ethereal user
-            pass: "c34eca03e743204fc8eff56fa7d4623d"  // generated ethereal password
+            user: process.env.AUTH_USER, // generated ethereal user
+            pass: process.env.AUTH_PASS  // generated ethereal password
         },
     	    tls: {rejectUnauthorized: false},
 			debug:true
@@ -234,7 +242,7 @@ massMailer.prototype.SendEmail = function(Email,callback) {
 	async.waterfall([
 		function(callback) {				
 			var mailOptions = {
-				from: 'sittingprettyspa.net@outlook.com',		
+				from: process.env.CLIENT_EMAIL,		
 				to: Email,
 				subject: subject, 
 				html: message
