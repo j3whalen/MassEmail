@@ -45,7 +45,7 @@
           </p>
           <p class="full">
             <label>Message</label>
-            <textarea name="message" rows="20"></textarea>
+            <textarea name="message" rows="5"></textarea>
           </p>
           <p class="full">
             <button type="submit">Preview</button>
@@ -53,6 +53,14 @@
         </form>
       </div>
     </div>
+    <div class="invalid">
+  {{#if invalid}}
+  <h1>Emails Unable to be Sent</h1>
+  {{#each invalid}}
+      <h3>{{this}}</h3>
+{{/each}}
+  {{/if}}
+</div>
   </div>
 
 </body>

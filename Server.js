@@ -198,9 +198,19 @@ massMailer.prototype.invokeOperation = function() {
 	async.each(listofemails,self.SendEmail,function(){
 		console.log(success_email);
 		console.log(failure_email);
-		response.render("email",{
-			msg:"Messages Sent!"
-		})
+		if(failure_email.length == 1){
+			response.render("email",{
+				msg:"All Messages Sent!"
+			});
+
+		}else{
+			response.render("email",{
+				msg:"Not All Messages Sent! Scroll to bottom of page to see what email addresses couldn't be sent to!",
+				invalid: failure_email
+			});
+
+		}
+
 	});
 	console.log("END");
 }
